@@ -9,6 +9,8 @@ public abstract class Weapon extends GameObject {
 
     public void shoot(){
 
+        //TODO: create method for shooting
+
     }
 
 

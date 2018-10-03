@@ -6,4 +6,7 @@ public class Player extends GameObject {
 
     private int score;
     private Weapon rifle;
+
+
+    //TODO: Shoot everithing
 }

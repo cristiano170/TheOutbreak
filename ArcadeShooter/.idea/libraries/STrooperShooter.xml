@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="STrooperShooter">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/build/STrooperShooter.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
