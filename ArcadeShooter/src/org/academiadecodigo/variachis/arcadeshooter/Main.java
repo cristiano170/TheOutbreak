@@ -13,7 +13,13 @@ public class Main {
 
     public static void main(String[] args) throws java.lang.InterruptedException{
 
-        URL url = Main.class.getResource("/image/video-game-background-animated-GIF-5.gif");
+
+        Game game = new Game();
+
+        game.init();
+        game.play();
+
+        /*URL url = Main.class.getResource("/image/video-game-background-animated-GIF-5.gif");
         Icon icon = new ImageIcon(url);
         JLabel label = new JLabel(icon);
 
@@ -46,6 +52,6 @@ public class Main {
 
         Picture duck = new Picture(1015, 340, "/image/Duck.png");
         duck.grow(-152,-170);
-        duck.draw();
+        duck.draw();*/
     }
 }
