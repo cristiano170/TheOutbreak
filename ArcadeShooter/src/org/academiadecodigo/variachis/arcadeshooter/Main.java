@@ -7,9 +7,11 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 import javax.swing.*;
 import java.net.URL;
 
+import static java.lang.Thread.sleep;
+
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws java.lang.InterruptedException{
 
         URL url = Main.class.getResource("/image/video-game-background-animated-GIF-5.gif");
         Icon icon = new ImageIcon(url);
@@ -21,17 +23,26 @@ public class Main {
         Picture background = new Picture(10, 10, "/image/OldWest.png");
         background.draw();
 
-        /*Picture target1 = new Picture(850, 200, "/image/Target.png");
+        Picture target1 = new Picture(850, 200, "/image/bankrobber.png");
         target1.grow(-10,10);
-        target1.draw();*/
+        target1.draw();
 
-        /*Picture target2 = new Picture(570, 350, "/image/Target.png");
-        target2.grow(10,10);
-        target2.draw();*/
+        Picture target2 = new Picture(570, 250, "/image/Cowboy.png");
+        target2.grow(-60,-80);
+        target2.draw();
 
-        Picture bird = new Picture(800, 15, "/image/Bird.png");
-        bird.grow(-80,-80);
+
+
+        Picture bird = new Picture(100, 15, "/image/Bird.png");
+        bird.grow(-80, -80);
         bird.draw();
+
+        for (int i = 1 ; i < 800 ; i++) {
+            bird.translate(1, 0);
+            bird.draw();
+            sleep(10);
+        }
+
 
         Picture duck = new Picture(1015, 340, "/image/Duck.png");
         duck.grow(-152,-170);
