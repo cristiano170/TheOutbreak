@@ -10,33 +10,61 @@ public class Game {
 
     private Player player;
     private LinkedList<Target> target;
-    private Boolean gameover;
+    private Boolean gameover = false;
 
 
-    public Game(){
+    public Game() {
         player = new Player();
         target = new LinkedList<>();
 
+
     }
 
-    public void init(){
+
+    public void init() {
         target.add(new Foe());
-        target.add(new Victim());
-        target.add(new AmmoBonus());
-        target.add(new HPBonus());
         target.add(new Foe());
-        target.add(new Victim());
+        target.add(new Foe());
+        target.add(new Foe());
+        target.add(new Foe());
+        target.add(new Foe());
+
         target.add(new AmmoBonus());
         target.add(new HPBonus());
 
-        for (Target t : target){
+
+        /*target.add(new Victim());
+        target.add(new AmmoBonus());
+        target.add(new HPBonus());
+        target.add(new Foe());
+        target.add(new Victim());
+        target.add(new Victim());
+        target.add(new Victim());
+        target.add(new Victim());
+        target.add(new AmmoBonus());
+        target.add(new HPBonus());*/
+
+        for (Target t : target) {
             player.shoot(t);
+            setGameover();
+            if (gameover) {
+                break;
+            }
+
         }
     }
 
-    public void setGameover(Boolean gameover) {
+    public void setGameover() {
 
-        this.gameover = true;
+        if (player.checkIfGameover()) {
+
+            this.gameover = true;
+
+            System.out.println("GAME OVER");
+
+        } else
+            System.out.println("STILL BULLETS OR HP");
+
 
     }
 

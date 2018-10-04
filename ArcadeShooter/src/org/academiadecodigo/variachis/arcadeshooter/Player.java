@@ -2,12 +2,12 @@ package org.academiadecodigo.variachis.arcadeshooter;
 
 import org.academiadecodigo.variachis.arcadeshooter.Drawable.Drawable;
 import org.academiadecodigo.variachis.arcadeshooter.Drawable.Targets.*;
-import org.academiadecodigo.variachis.arcadeshooter.Drawable.Weapons.Shotgun;
 import org.academiadecodigo.variachis.arcadeshooter.Drawable.Weapons.Weapon;
 
 public class Player extends Drawable {
 
     private int hp = 3;
+    private final int maxHP = 5;
     protected int score = 0;
     private String name;
     private Weapon weapon;
@@ -21,7 +21,16 @@ public class Player extends Drawable {
 
     public Player() {
         name = "Rambodias";
-        weapon = new Shotgun();
+        weapon = new Weapon();
+    }
+
+    public boolean checkIfGameover() {
+
+        if (hp == 0 || this.weapon.getCurrentBullets() == 0) {
+
+            return true;
+        }
+        return false;
     }
 
     public void setHp(int hp) {
@@ -31,26 +40,48 @@ public class Player extends Drawable {
 
     public void shoot(Target target) {
 
+
         if (target instanceof Foe) {
-            score += target.whenHit();
+            score += weapon.fire(target);
             System.out.println("Foe hit Score: " + score);
+            System.out.println("Weapon current ammo: " + weapon.getCurrentBullets());
+
         }
         if (target instanceof Victim) {
-            hp -= target.whenHit();
+            hp -= weapon.fire(target);
             System.out.println("Victim hit HP: " + hp);
+            System.out.println("Weapon current ammo: " + weapon.getCurrentBullets());
+
         }
         if (target instanceof HPBonus) {
-            hp += target.whenHit();
+            if (hp == maxHP) {
+                weapon.fire(target);
+                System.out.println(weapon.getCurrentBullets());
+                return;
+            }
+            hp += weapon.fire(target);
             System.out.println("HPBonus hit HP: " + hp);
+            System.out.println("Weapon current ammo: " + weapon.getCurrentBullets());
+
+
         }
+
 
         if (target instanceof AmmoBonus) {
-            weapon.setCurrentBullets(target.whenHit());
-            System.out.println("AmmoBonus hit Ammo: " + weapon.getCurrentBullets());
+
+            weapon.setCurrentBullets(weapon.fire(target));
+
+
+            if (weapon.getCurrentBullets() > weapon.getBulletMax()) {
+
+                weapon.setCurrentBullets();
+            }
+            System.out.println("AmmoBonus hit Ammo: " + target.whenHit());
+            System.out.println("Weapon current ammo: " + weapon.getCurrentBullets());
         }
-        weapon.fire(target);
+
+        checkIfGameover();
+
+
     }
-
-
-    //TODO: Shoot everithing
 }
