@@ -7,7 +7,7 @@ import org.academiadecodigo.variachis.arcadeshooter.Drawable.Targets.Target;
 public abstract class Weapon extends Drawable {
 
     private int bulletMax = 10;
-    private int currentBullets;
+    private static int currentBullets;
 
     public Weapon() {
 
@@ -24,12 +24,11 @@ public abstract class Weapon extends Drawable {
         this.currentBullets += ammoBonus;
     }
 
-    public void shoot(Target target) {
+    public void fire(Target target) {
 
         if (currentBullets > 0) {
 
-            this.currentBullets--;
-
+            currentBullets--;
         }
 
     }
