@@ -16,13 +16,10 @@ public class Player extends Drawable {
     public Player(String name) {
 
         this.name = name;
-
-    }
-
-    public Player() {
-        name = "Rambodias";
         weapon = new Weapon();
+
     }
+
 
     public boolean checkIfGameover() {
 
