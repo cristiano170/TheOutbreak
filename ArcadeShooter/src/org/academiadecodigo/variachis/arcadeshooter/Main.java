@@ -11,10 +11,11 @@ import static java.lang.Thread.sleep;
 
 public class Main {
 
-    public static void main(String[] args) throws java.lang.InterruptedException{
+    public static void main(String[] args) throws java.lang.InterruptedException {
 
 
         Game game = new Game();
+
 
         game.init();
         game.play();

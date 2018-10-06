@@ -5,7 +5,6 @@ import org.academiadecodigo.variachis.arcadeshooter.Drawable.Targets.*;
 
 
 import java.util.LinkedList;
-import java.util.Queue;
 
 public class Game {
 
@@ -16,7 +15,7 @@ public class Game {
     private Boolean gameover = false;
     private int numberOfTargets = 20;
     private TargetFactory targetFactory;
-    private int currentOnStage = 5;
+    private int maxTargetsOnStage = 5;
 
 
     public Game() {
@@ -31,13 +30,13 @@ public class Game {
 
     public void init() {
 
-        //Game sets the maximum number of targets to be created on the factory
+        //Game sets the maximum number of targets to be created in the TargetFactory
         targetFactory.setMaxNumberTargets(numberOfTargets);
-        //Create all the targets before starting the game
+        //Creates all the targets before starting the game
         for (int i = 0; i < createTargets.length; i++) {
-            //creates a target
+            //Creates one target per each iteration
             createTargets[i] = targetFactory.newTarget();
-            //add target to off stage
+            //Adds target to the targetOffStage list
             targetOffStage.add(createTargets[i]);
         }
 
@@ -67,6 +66,7 @@ public class Game {
 
     }
 
+    // If checkIfGameover method returns true the game is over, otherwise the game continues
     public void setGameover() {
 
         if (player.checkIfGameover()) {
@@ -81,16 +81,16 @@ public class Game {
 
     }
 
-    public void addElementOnStage () {
+    public void addElementOnStage() {
 
-        while (targetOnStage.size() < currentOnStage) {
+        while (targetOnStage.size() < maxTargetsOnStage) {
 
-            //index of element to remove from off stage
+            //Gets random index of element to remove from the offStage list
             int elementToRemove = ((int) (Math.random() * (targetOffStage.size())));
-            //get target to remove from off stage using the index and add that target to on stage
+            //Gets target to remove from the offStage list using the index and adds that target to the onStage list
             targetOnStage.add(targetOffStage.get(elementToRemove));
             System.out.println(targetOnStage);
-            //remove target from off stage
+            //Removes target from the offStage list
             targetOffStage.remove(elementToRemove);
             System.out.println(targetOffStage.size());
 
@@ -98,26 +98,31 @@ public class Game {
         }
 
 
-
     }
 
-    public void removeTargetShot (Target  target) {
 
-        targetOffStage.add(target);
-        targetOnStage.remove(targetOnStage.indexOf(target));
+    // When target is hit it's added to the offStage list and then removed from the onStage list
+    public void removeTargetShot(Target target) {
+
+        int elementToRemove = targetOnStage.indexOf(target);
+        targetOffStage.add(targetOnStage.get(elementToRemove));
+        targetOnStage.remove(elementToRemove);
+
 
     }
 
 
     public void play() {
 
+        // While game isn't over:
         while (!gameover) {
-            //Have always 5 targets on stage
+            // - it always has 5 targets on stage
             addElementOnStage();
 
-            for (Target t : targetOnStage) {
-                player.shoot(t);
-                removeTargetShot(t);
+//            for (Target t : targetOnStage) {
+            for (int i = 0; i < targetOnStage.size(); i++) {
+                player.shoot(targetOnStage.get(i));
+                removeTargetShot(targetOnStage.get(i));
                 addElementOnStage();
                 setGameover();
                 if (gameover) {
@@ -137,9 +142,10 @@ public class Game {
 
 
         }*/
+                // }
+
             }
 
         }
-
     }
 }

@@ -12,6 +12,7 @@ public class Weapon extends Drawable {
 
     public Weapon() {
 
+        // Sets the initial number of bullets the weapon will have when it's created
         this.currentBullets = bulletMax;
     }
 
@@ -35,12 +36,13 @@ public class Weapon extends Drawable {
 
     public int fire(Target target) {
 
+        // When the weapon is fired if the number of bullets is bigger than zero it will decrement
+        // the number of bullets by one
 
         if (currentBullets > 0) {
-
             currentBullets--;
         }
-        return target.whenHit();
+        return target.whenHit();  // Returns the specific result that occurs when each target is hit
 
 
         /*if (target instanceof Foe) {
