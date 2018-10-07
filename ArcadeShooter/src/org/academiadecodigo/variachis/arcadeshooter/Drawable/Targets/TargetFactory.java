@@ -17,22 +17,22 @@ public class TargetFactory {
     // Creation of the 20 initial targets (8 friends, 8 foes, 2 ammo, 2 Hp) in the offStage list
     public Target newTarget() {
 
-        if (this.currentNumberOfTargets < maxNumberTargets * 0.4) {
+        if (this.currentNumberOfTargets < maxNumberTargets * 0.35) {
             this.currentNumberOfTargets++;
-            return new Foe();
+            return new Foe("/image/ZombieAssets/male/Idle (1).png");
         }
 
-        if (this.currentNumberOfTargets >= maxNumberTargets * 0.4 && currentNumberOfTargets < maxNumberTargets * 0.8) {
+        if (this.currentNumberOfTargets >= maxNumberTargets * 0.35 && currentNumberOfTargets < maxNumberTargets * 0.7) {
             currentNumberOfTargets++;
-            return new Victim();
+            return new Victim("/image/ZombieAssets/female/Idle (1).png");
         }
 
-        if (currentNumberOfTargets >= maxNumberTargets * 0.8 && currentNumberOfTargets < maxNumberTargets * 0.9) {
+        if (currentNumberOfTargets >= maxNumberTargets * 0.7 && currentNumberOfTargets < maxNumberTargets * 0.85) {
             currentNumberOfTargets++;
-            return new HPBonus();
+            return new HPBonus("/image/HP.png");
         }
         currentNumberOfTargets++;
-        return new AmmoBonus();
+        return new AmmoBonus("/image/Ammo.png");
 
 
     }

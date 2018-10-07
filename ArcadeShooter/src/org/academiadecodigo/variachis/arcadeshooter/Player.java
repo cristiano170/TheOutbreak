@@ -13,10 +13,9 @@ public class Player {
     private Weapon weapon;
 
 
-    public Player(String name) {
-
+    public Player(String name) throws java.lang.NullPointerException {
         this.name = name;
-        weapon = new Weapon();
+        weapon = new Weapon("/image/crosshair.png");
 
     }
 

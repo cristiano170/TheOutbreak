@@ -11,7 +11,7 @@ import static java.lang.Thread.sleep;
 
 public class Main {
 
-    public static void main(String[] args) throws java.lang.InterruptedException {
+    public static void main(String[] args) throws java.lang.InterruptedException, java.lang.NullPointerException {
 
 
         Game game = new Game();
@@ -20,21 +20,21 @@ public class Main {
         game.init();
         game.play();
 
-        /*URL url = Main.class.getResource("/image/video-game-background-animated-GIF-5.gif");
+        /*URL url = Main.class.getResource("/image/video-game-background-nimated-GIF-5.gif");
         Icon icon = new ImageIcon(url);
         JLabel label = new JLabel(icon);
 
 
 
 
-        Picture background = new Picture(10, 10, "/image/OldWest.png");
+        Picture background = new Picture(10, 10, "/image/OdWest.png");
         background.draw();
 
-        Picture target1 = new Picture(850, 200, "/image/bankrobber.png");
+        Picture target1 = new Picture(850, 200, "/image/bankrober.png");
         target1.grow(-10,10);
         target1.draw();
 
-        Picture target2 = new Picture(570, 250, "/image/Cowboy.png");
+        Picture target2 = new Picture(570, 250, "/image/owboy.png");
         target2.grow(-60,-80);
         target2.draw();
 

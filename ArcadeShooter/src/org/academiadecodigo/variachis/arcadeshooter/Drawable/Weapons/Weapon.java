@@ -3,15 +3,16 @@ package org.academiadecodigo.variachis.arcadeshooter.Drawable.Weapons;
 import org.academiadecodigo.variachis.arcadeshooter.Drawable.Drawable;
 import org.academiadecodigo.variachis.arcadeshooter.Drawable.Targets.*;
 import org.academiadecodigo.variachis.arcadeshooter.Game;
+import org.academiadecodigo.variachis.arcadeshooter.Movable;
 
 
-public class Weapon extends Drawable {
+public class Weapon extends Drawable implements Movable {
 
     private final int bulletMax = 10;
     private static int currentBullets;
 
-    public Weapon() {
-
+    public Weapon(String fileName) throws java.lang.NullPointerException {
+        super(fileName);
         // Sets the initial number of bullets the weapon will have when it's created
         this.currentBullets = bulletMax;
     }
@@ -65,5 +66,8 @@ public class Weapon extends Drawable {
 
     }
 
+    @Override
+    public void move() {
 
+    }
 }
