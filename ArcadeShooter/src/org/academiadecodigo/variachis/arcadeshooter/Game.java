@@ -1,6 +1,7 @@
 package org.academiadecodigo.variachis.arcadeshooter;
 
 
+import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.variachis.arcadeshooter.Drawable.Targets.*;
 
@@ -18,6 +19,7 @@ public class Game {
     private int numberOfTargets = 20;
     private TargetFactory targetFactory;
     private int maxTargetsOnStage = 5;
+    Controller controller = new Controller();
 
 
     public Game() throws java.lang.NullPointerException {
@@ -36,6 +38,8 @@ public class Game {
         Picture background = new Picture(10, 10, "/image/cemetary.jpg");
         background.draw();
 
+        Controller c = new Controller();
+        c.customCursor();
 
         //Game sets the maximum number of targets to be created in the TargetFactory
         targetFactory.setMaxNumberTargets(numberOfTargets);
@@ -99,13 +103,24 @@ public class Game {
             int elementToRemove = ((int) (Math.random() * (targetOffStage.size())));
             //Gets target to remove from the offStage list using the index and adds that target to the onStage list
             targetOnStage.add(targetOffStage.get(elementToRemove));
-            targetOffStage.get(elementToRemove).drawTarget();
-            System.out.println(targetOnStage);
-            //Removes target from the offStage list
-            targetOffStage.remove(elementToRemove);
-            System.out.println(targetOffStage.size());
-
-
+            while (true) {
+                int xRan = (int) (Math.random() * 1000);
+                int yRan = (int) (Math.random() * 550);
+                for (int i = 0 ; i < targetOnStage.size() ; i++) {
+                    if (xRan > targetOnStage.get(i).picX() - 200
+                            && xRan < targetOnStage.get(i).picX() + targetOnStage.get(i).picWidthX() + 200
+                        && yRan > targetOnStage.get(i).picY() - 200
+                            && yRan <targetOnStage.get(i).picY() + targetOnStage.get(i).picHeightY() + 200)
+                    {
+                        targetOffStage.get(elementToRemove).drawTarget(xRan,yRan);
+                        System.out.println(targetOnStage);
+                        //Removes target from the offStage list
+                        targetOffStage.remove(elementToRemove);
+                        System.out.println(targetOffStage.size());
+                        return;
+                    }
+                }
+            }
         }
 
 
@@ -147,13 +162,16 @@ public class Game {
                 targetOnStage.get(i).deleteTargetImg();
                 removeTargetShot(targetOnStage.get(i));
                 addElementOnStage();
-
+                Text txt = new Text(500,30, "Score: " + player.getScore() + "-  HP: " + player.getHp());
+                txt.grow(55,20);
+                txt.draw();
                 setGameover();
                 sleep(1000);
 
                 if (gameover) {
                     return;
                 }
+                txt.delete();
 
                 //for (Target t : targetOnStage) {
                 //  t.deleteTarget();

@@ -1,6 +1,9 @@
 package org.academiadecodigo.variachis.arcadeshooter.Drawable;
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+import org.academiadecodigo.variachis.arcadeshooter.Drawable.Targets.Target;
+
+import java.util.LinkedList;
 
 public abstract class Drawable {
 
@@ -11,16 +14,30 @@ public abstract class Drawable {
     public Drawable(String fileName) throws java.lang.NullPointerException {
         try {
             this.fileName = fileName;
+            picture = new Picture(0,0,fileName);
         } catch (NullPointerException e) {
         }
     }
 
-    public void drawTarget() {
+    public int picX(){
+        return picture.getX();
+    }
 
-        int xRan = (int) (Math.random() * 1000 );
-        int yRan = (int) (Math.random() * 550 );
+    public int picY(){
+        return picture.getY();
+    }
 
-        picture = new Picture(xRan, yRan, fileName);
+    public int picWidthX(){
+        return picture.getWidth();
+    }
+
+    public int picHeightY(){
+        return picture.getHeight();
+    }
+
+    public void drawTarget(int x, int y) {
+
+        picture = new Picture(x, y, fileName);
 
         picture.draw();
 

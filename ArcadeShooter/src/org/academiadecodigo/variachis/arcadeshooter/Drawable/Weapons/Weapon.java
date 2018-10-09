@@ -8,7 +8,7 @@ import org.academiadecodigo.variachis.arcadeshooter.Movable;
 
 public class Weapon extends Drawable implements Movable {
 
-    private final int bulletMax = 10;
+    private final int bulletMax = 1000;
     private static int currentBullets;
 
     public Weapon(String fileName) throws java.lang.NullPointerException {
@@ -16,6 +16,8 @@ public class Weapon extends Drawable implements Movable {
         // Sets the initial number of bullets the weapon will have when it's created
         this.currentBullets = bulletMax;
     }
+
+
 
     public int getCurrentBullets() {
 

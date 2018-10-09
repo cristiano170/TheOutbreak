@@ -6,12 +6,24 @@ import org.academiadecodigo.variachis.arcadeshooter.Drawable.Weapons.Weapon;
 
 public class Player {
 
-    private int hp = 3;
-    private final int maxHP = 5;
+    private int hp = 10;
+    private final int maxHP = 20;
     protected int score = 0;
     private String name;
     private Weapon weapon;
 
+
+    public int getHp() {
+        return hp;
+    }
+
+    public int getMaxHP() {
+        return maxHP;
+    }
+
+    public int getScore() {
+        return score;
+    }
 
     public Player(String name) throws java.lang.NullPointerException {
         this.name = name;
