@@ -23,6 +23,7 @@ public class Weapon extends Drawable implements Movable {
 
     }
 
+
     public int getBulletMax() {
         return bulletMax;
     }

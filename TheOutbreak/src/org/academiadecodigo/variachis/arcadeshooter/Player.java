@@ -29,6 +29,22 @@ public class Player {
         return false;
     }
 
+    public int getWeaponBullets(){
+        return weapon.getCurrentBullets();
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
     public void setHp(int hp) {
         this.hp = hp;
     }

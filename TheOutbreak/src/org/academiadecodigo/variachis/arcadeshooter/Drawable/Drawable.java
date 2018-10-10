@@ -11,13 +11,30 @@ public abstract class Drawable {
     public Drawable(String fileName) throws java.lang.NullPointerException {
         try {
             this.fileName = fileName;
+            picture = new Picture(0,0,fileName);
         } catch (NullPointerException e) {
         }
     }
 
-    public void drawTarget() {
+    public double picX(){
+        return picture.getX();
+    }
 
-        int xRan;
+    public double picY(){
+        return picture.getY();
+    }
+
+    public double picWidthX(){
+        return picture.getWidth();
+    }
+
+    public double picHeightY(){
+        return picture.getHeight();
+    }
+
+    public void drawTarget(int x, int y) {
+
+        /*int xRan;
         int yRan = 0;
 
         int aux = (int) (Math.random() * 2);
@@ -39,15 +56,15 @@ public abstract class Drawable {
             case 5:
                 yRan = 510;
                 break;
-        }
+        }*/
 
 
-        if (aux == 1)
+       /* if (aux == 1)
             xRan = 10;
-        else xRan = 715;
+        else xRan = 715;*/
 
 
-        picture = new Picture(xRan, yRan, fileName);
+        picture = new Picture(x, y, fileName);
 
         picture.draw();
     }

@@ -18,8 +18,6 @@ public class Main {
 
 
         game.init();
-        game.play();
-
 
     }
 }
