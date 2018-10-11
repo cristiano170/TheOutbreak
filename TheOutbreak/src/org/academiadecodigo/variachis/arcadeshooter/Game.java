@@ -14,6 +14,7 @@ import org.academiadecodigo.variachis.arcadeshooter.Drawable.Targets.*;
 
 import java.util.LinkedList;
 
+import static java.lang.Thread.getAllStackTraces;
 import static java.lang.Thread.sleep;
 
 
@@ -31,6 +32,7 @@ public class Game implements KeyboardHandler, MouseHandler {
     private final int maxTargetsOnStage = 5;
     private Picture gamepic;
     private Picture crosshair;
+    Picture gameoverPic;
     //private Picture gamepic;
 
 
@@ -47,6 +49,7 @@ public class Game implements KeyboardHandler, MouseHandler {
 
     public void init() throws InterruptedException {
 
+        gameEnd = false;
 
         //Create gamepic
         gamepic = new Picture(10, 10, "/image/Main Menu.png");
@@ -54,7 +57,7 @@ public class Game implements KeyboardHandler, MouseHandler {
 
         gamepic.draw();
 
-
+        gameoverPic = new Picture(gamepic.getWidth() / 4, gamepic.getHeight() / 4, "image/gameover.png");
         //Game sets the maximum number of targets to be created in the TargetFactory
         targetFactory.setMaxNumberTargets(numberOfTargets);
 
@@ -94,6 +97,7 @@ public class Game implements KeyboardHandler, MouseHandler {
                 break;
             case KeyboardEvent.KEY_E:
                 gameEnd = true;
+                gameoverPic.delete();
                 break;
 
 
@@ -115,16 +119,20 @@ public class Game implements KeyboardHandler, MouseHandler {
         if (player.checkIfGameover()) {
 
             this.gameover = true;
+            this.gameEnd = true;
+
             for (Target t : targetOnStage) {
                 t.deleteTargetImg();
-                Picture gameover = new Picture(gamepic.getWidth() / 4, gamepic.getHeight() / 4, "image/gameover.png");
-                gameover.draw();
-
 
 
             }
-
+            gameoverPic.draw();
             System.out.println("GAME OVER");
+            try {
+                play();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
         }
 
@@ -133,12 +141,16 @@ public class Game implements KeyboardHandler, MouseHandler {
 
     public void addElementOnStage() {
 
+
         while (targetOnStage.size() < maxTargetsOnStage) {
 
             //Gets random index of element to remove from the offStage list
             int elementToRemove = ((int) (Math.random() * (targetOffStage.size())));
             //Gets target to remove from the offStage list using the index and adds that target to the onStage list
-            targetOnStage.add(targetOffStage.get(elementToRemove));
+            targetOnStage
+                    .add(targetOffStage.
+                            get(elementToRemove));
+
 
             int xRan = (int) (Math.random() * (gamepic.getWidth() - 100));
             int yRan = (int) (Math.random() * (gamepic.getHeight() - 200));
@@ -174,34 +186,37 @@ public class Game implements KeyboardHandler, MouseHandler {
 
     private void play() throws java.lang.InterruptedException {
 
-        gamepic.delete();
-        gamepic = new Picture(10, 10, "image/graveyard.jpg");
-        gamepic.draw();
 
-        System.out.println("LOADED");
+        if (!gameover) {
 
+            gamepic.delete();
+            gamepic = new Picture(10, 10, "image/gameField.jpg");
+            gamepic.draw();
 
-        System.out.println("PLAY");
-
-        Mouse m = new Mouse(this);
-        m.addEventListener(MouseEventType.MOUSE_CLICKED);
-        m.addEventListener(MouseEventType.MOUSE_MOVED);
-
-        // gamepic.delete();
-        //  gamepic = new Picture(10, 10, "/image/graveyard.jpg");
-        // gamepic.draw();
-        //gamepic.delete();
-        crosshair = new Picture(10, 10, "/image/crosshair.png");
-        //crosshair.draw();
-        // While game isn't over:
+            System.out.println("LOADED");
 
 
-        while (!gameover) {
+            System.out.println("PLAY");
 
-            // - it always has 5 targets on stage
-            addElementOnStage();
+            Mouse m = new Mouse(this);
+            m.addEventListener(MouseEventType.MOUSE_CLICKED);
+            m.addEventListener(MouseEventType.MOUSE_MOVED);
 
-            //Running the program in an automatic way
+            // gamepic.delete();
+            //  gamepic = new Picture(10, 10, "/image/graveyard.jpg");
+            // gamepic.draw();
+            //gamepic.delete();
+            crosshair = new Picture(10, 10, "/image/crosshair.png");
+            //crosshair.draw();
+            // While game isn't over:
+
+
+            while (!gameover) {
+
+                // - it always has 5 targets on stage
+                addElementOnStage();
+
+                //Running the program in an automatic way
             /*for (int i = 0; i < targetOnStage.size(); i++) {
 
 
@@ -219,35 +234,48 @@ public class Game implements KeyboardHandler, MouseHandler {
             bulletText.draw();*/
 
 
-            setGameOver();
+                setGameOver();
 
 
+                if (gameover) {
 
-            if (gameover) {
+                    System.out.println("habemos gameover");
+                    return;
 
-
-                return;
+                }
 
             }
             /*scoreText.delete();
             hpText.delete();
             bulletText.delete();*/
+        }
 
-            Keyboard k = new Keyboard(this);
-            KeyboardEvent space = new KeyboardEvent();
+        Keyboard k = new Keyboard(this);
+        KeyboardEvent space = new KeyboardEvent();
 
-            space.setKey(KeyboardEvent.KEY_E);
-            space.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-            k.addEventListener(space);
+        space.setKey(KeyboardEvent.KEY_E);
+        space.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        k.addEventListener(space);
 
-            while(!gameEnd) {
+        System.out.println("end");
 
-                gameStart = false;
-                System.out.println();
 
-            }
+    }
 
+    public void gameRestart() {
+
+        gameover = false;
+        gameStart = false;
+        gameEnd = false;
+        crosshair.delete();
+        gamepic.delete();
+        //createTargets = new Target[numberOfTargets];
+        targetOffStage.clear();
+        targetOnStage.clear();
+        try {
             init();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
 
@@ -267,6 +295,7 @@ public class Game implements KeyboardHandler, MouseHandler {
     public void mouseClicked(MouseEvent mouseEvent) {
         switch (mouseEvent.getEventType()) {
             case MOUSE_CLICKED:
+                //System.out.println("SHOOT");
                 Target targetHit = checkTargetHit(crosshair.getX() + (crosshair.getWidth() / 2d), crosshair.getY() +
                         (crosshair.getHeight() / 2d));
                 if (targetHit != null) {

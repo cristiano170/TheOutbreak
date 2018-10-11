@@ -1,6 +1,5 @@
 package org.academiadecodigo.variachis.arcadeshooter;
 
-import org.academiadecodigo.variachis.arcadeshooter.Drawable.Drawable;
 import org.academiadecodigo.variachis.arcadeshooter.Drawable.Targets.*;
 import org.academiadecodigo.variachis.arcadeshooter.Drawable.Weapons.Weapon;
 

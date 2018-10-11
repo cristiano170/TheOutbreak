@@ -17,7 +17,23 @@ public class Main {
         Game game = new Game();
 
 
+        boolean playingGame = true;
+
+        /*while(playingGame){
+
+            game.init();
+            System.out.println("main 0");
+            game.gameRestart();
+            System.out.println("main");
+
+
+        }*/
+
         game.init();
+        System.out.println("main");
+        game.init();
+
+
 
     }
 }
