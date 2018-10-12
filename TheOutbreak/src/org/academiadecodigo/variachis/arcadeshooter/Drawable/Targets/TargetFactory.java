@@ -12,15 +12,15 @@ public class TargetFactory {
         maxNumberTargets = targets;
     }
 
-    // Creation of the 20 initial targets (7 friends, 7 foes, 3 ammo, 3 Hp) in the offStage list
+    // Creation of the 20 initial targets (5 friends, 9 foes, 3 ammo, 3 Hp) in the offStage list
     public Target newTarget() {
 
-        if (this.currentNumberOfTargets < maxNumberTargets * 0.35) {
+        if (this.currentNumberOfTargets < maxNumberTargets * 0.45) {
             this.currentNumberOfTargets++;
             return new Foe("/image/Zombie.png");
         }
 
-        if (this.currentNumberOfTargets >= maxNumberTargets * 0.35 && currentNumberOfTargets < maxNumberTargets * 0.7) {
+        if (this.currentNumberOfTargets >= maxNumberTargets * 0.45 && currentNumberOfTargets < maxNumberTargets * 0.7) {
             currentNumberOfTargets++;
             return new Victim("/image/cat.png");
         }

@@ -4,7 +4,7 @@
 
     <!-- Initialize build properties  -->
     <target name="init" description="Initializes properties">
-        <property name="project.name" value="GandhiMateGandhi" />
+        <property name="project.name" value="TheOutbreak" />
         <property name="src.dir" value="src" />
         <property name="main.class" value="org.academiadecodigo.bootcamp8.gandhimategandhi.Main" />
         <property name="build.dir" value="build" />

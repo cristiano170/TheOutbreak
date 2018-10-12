@@ -2,6 +2,8 @@ package org.academiadecodigo.variachis.arcadeshooter.Drawable.Targets;
 
 import org.academiadecodigo.variachis.arcadeshooter.Movable;
 
+import java.util.ConcurrentModificationException;
+
 public class Victim extends Target implements Movable {
 
     private final int hpPoints = 1;
@@ -19,7 +21,22 @@ public class Victim extends Target implements Movable {
     }
 
     @Override
-    public void move() {
+    public void move() throws java.util.ConcurrentModificationException {
+        int rmd = (int) (Math.random() * 2);
+        try {
+            if (rmd == 1) {
+                if (picture.getX() < 650) {
+                    picture.translate(5, 0);
+                }
 
+            } else {
+                if (picture.getX() > 40) {
+                    picture.translate(-5, 0);
+                }
+            }
+        }
+        catch (ConcurrentModificationException e) {
+            e.printStackTrace();
+        }
     }
 }

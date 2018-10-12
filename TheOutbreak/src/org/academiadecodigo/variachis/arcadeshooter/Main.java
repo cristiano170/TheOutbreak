@@ -11,13 +11,13 @@ import static java.lang.Thread.sleep;
 
 public class Main {
 
-    public static void main(String[] args) throws java.lang.InterruptedException, java.lang.NullPointerException {
+    public static void main(String[] args)  {
 
 
         Game game = new Game();
 
 
-        boolean playingGame = true;
+       // boolean playingGame = true;
 
         /*while(playingGame){
 
@@ -29,9 +29,12 @@ public class Main {
 
         }*/
 
-        game.init();
-        System.out.println("main");
-        game.init();
+        try {
+            game.init();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //game.play();
 
 
 

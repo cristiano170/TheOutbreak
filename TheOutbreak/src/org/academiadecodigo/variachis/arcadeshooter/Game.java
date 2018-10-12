@@ -1,6 +1,5 @@
 package org.academiadecodigo.variachis.arcadeshooter;
 
-import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -13,9 +12,6 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.variachis.arcadeshooter.Drawable.Targets.*;
 
 import java.util.LinkedList;
-
-import static java.lang.Thread.getAllStackTraces;
-import static java.lang.Thread.sleep;
 
 
 public class Game implements KeyboardHandler, MouseHandler {
@@ -32,16 +28,20 @@ public class Game implements KeyboardHandler, MouseHandler {
     private final int maxTargetsOnStage = 5;
     private Picture gamepic;
     private Picture crosshair;
-    Picture gameoverPic;
-    //private Picture gamepic;
+    private Picture gameoverPic;
+    private Hud hud;
 
 
     public Game() throws java.lang.NullPointerException {
+        //Create gamepic
+        gamepic = new Picture(10, 10, "/image/Main Menu.png");
         player = new Player("NOME");
         createTargets = new Target[numberOfTargets];
         targetOffStage = new LinkedList<>();
         targetOnStage = new LinkedList<>();
         targetFactory = new TargetFactory();
+        hud = new Hud();
+        hud.setValuesText(player.getScore(), player.getHp(), player.getWeaponBullets());
 
 
     }
@@ -51,13 +51,12 @@ public class Game implements KeyboardHandler, MouseHandler {
 
         gameEnd = false;
 
-        //Create gamepic
-        gamepic = new Picture(10, 10, "/image/Main Menu.png");
+
         //gamepic = new Picture(10, 10, "/image/graveyard.png");
 
         gamepic.draw();
 
-        gameoverPic = new Picture(gamepic.getWidth() / 4, gamepic.getHeight() / 4, "image/gameover.png");
+        gameoverPic = new Picture(gamepic.getWidth() / 4.5, 10, "image/gameover.png");
         //Game sets the maximum number of targets to be created in the TargetFactory
         targetFactory.setMaxNumberTargets(numberOfTargets);
 
@@ -83,8 +82,11 @@ public class Game implements KeyboardHandler, MouseHandler {
             System.out.println();
         }
 
-
-        play();
+        try {
+            play();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -97,11 +99,12 @@ public class Game implements KeyboardHandler, MouseHandler {
                 break;
             case KeyboardEvent.KEY_E:
                 gameEnd = true;
-                gameoverPic.delete();
+                System.exit(0);
                 break;
 
 
             default:
+                System.out.println("Invalid KeyStroke");
                 break;
 
         }
@@ -152,12 +155,12 @@ public class Game implements KeyboardHandler, MouseHandler {
                             get(elementToRemove));
 
 
-            int xRan = (int) (Math.random() * (gamepic.getWidth() - 100));
-            int yRan = (int) (Math.random() * (gamepic.getHeight() - 200));
+            int xRan = (int) (Math.random() * (((gamepic.getWidth() - 100) - 20) + 1) + 20);
+            int yRan = (int) (Math.random() * (((gamepic.getHeight() - 275) - 20) + 1) + 20);
 
             while (checkColision(xRan, yRan)) {
-                xRan = (int) (Math.random() * (gamepic.getWidth() - 100));
-                yRan = (int) (Math.random() * (gamepic.getHeight() - 200));
+                xRan = (int) (Math.random() * (((gamepic.getWidth() - 100) - 20) + 1) + 20);
+                yRan = (int) (Math.random() * (((gamepic.getHeight() - 275) - 20) + 1) + 20);
             }
 
 
@@ -184,7 +187,7 @@ public class Game implements KeyboardHandler, MouseHandler {
     }
 
 
-    private void play() throws java.lang.InterruptedException {
+    public void play() throws java.lang.InterruptedException {
 
 
         if (!gameover) {
@@ -202,13 +205,8 @@ public class Game implements KeyboardHandler, MouseHandler {
             m.addEventListener(MouseEventType.MOUSE_CLICKED);
             m.addEventListener(MouseEventType.MOUSE_MOVED);
 
-            // gamepic.delete();
-            //  gamepic = new Picture(10, 10, "/image/graveyard.jpg");
-            // gamepic.draw();
-            //gamepic.delete();
+
             crosshair = new Picture(10, 10, "/image/crosshair.png");
-            //crosshair.draw();
-            // While game isn't over:
 
 
             while (!gameover) {
@@ -216,26 +214,13 @@ public class Game implements KeyboardHandler, MouseHandler {
                 // - it always has 5 targets on stage
                 addElementOnStage();
 
-                //Running the program in an automatic way
-            /*for (int i = 0; i < targetOnStage.size(); i++) {
+                Thread.sleep(10);
 
+                moveTargets();
+                hud.setValuesText(player.getScore(), player.getHp(), player.getWeaponBullets());
 
-                player.shoot(targetOnStage.get(i));
-                System.out.println(targetOnStage.get(i));
-                targetOnStage.get(i).deleteTargetImg();
-                removeTargetShot(targetOnStage.get(i));
-                addElementOnStage();
-*/
-          /*  Text scoreText = new Text(650, 565, "" + player.getScore());
-            Text hpText = new Text(100, 565, "" + player.getHp());
-            Text bulletText = new Text(375, 565, "" + player.getWeaponBullets());
-            scoreText.draw();
-            hpText.draw();
-            bulletText.draw();*/
-
-
-                setGameOver();
-
+                Thread.sleep(100);
+                hud.showValues();
 
                 if (gameover) {
 
@@ -244,10 +229,10 @@ public class Game implements KeyboardHandler, MouseHandler {
 
                 }
 
+
+                setGameOver();
+
             }
-            /*scoreText.delete();
-            hpText.delete();
-            bulletText.delete();*/
         }
 
         Keyboard k = new Keyboard(this);
@@ -258,6 +243,19 @@ public class Game implements KeyboardHandler, MouseHandler {
         k.addEventListener(space);
 
         System.out.println("end");
+
+
+    }
+
+    private void moveTargets() throws java.lang.InterruptedException {
+
+        for (int i = 0; i < targetOnStage.size(); i++) {
+            if (targetOnStage.get(i) instanceof Foe || targetOnStage.get(i) instanceof Victim) {
+                ((Movable) targetOnStage.get(i)).move();
+                Thread.sleep(60);
+            }
+
+        }
 
 
     }
@@ -293,21 +291,21 @@ public class Game implements KeyboardHandler, MouseHandler {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
+
+
         switch (mouseEvent.getEventType()) {
             case MOUSE_CLICKED:
                 //System.out.println("SHOOT");
                 Target targetHit = checkTargetHit(crosshair.getX() + (crosshair.getWidth() / 2d), crosshair.getY() +
                         (crosshair.getHeight() / 2d));
+
                 if (targetHit != null) {
                     player.shoot(targetHit);
-                    targetHit.deleteTargetImg();
                     removeTargetShot(targetHit);
-                    addElementOnStage();
-                    setGameOver();
-
-
                 }
-
+                if (targetHit == null) {
+                    player.shoot();
+                }
 
         }
 
@@ -347,11 +345,11 @@ public class Game implements KeyboardHandler, MouseHandler {
             }
         }*/
 
-        for (Target t : targetOnStage) {
-            if (xRan > t.picX() - 100
-                    && xRan < t.picX() + t.picWidthX() + 100
-                    && yRan > t.picY() - 100
-                    && yRan < t.picY() + t.picHeightY() + 100) {
+        for (int i = 0; i < targetOnStage.size(); i++) {
+            if (xRan > targetOnStage.get(i).picX() - 100
+                    && xRan < targetOnStage.get(i).picX() + targetOnStage.get(i).picWidthX() + 100
+                    && yRan > targetOnStage.get(i).picY() - 100
+                    && yRan < targetOnStage.get(i).picY() + targetOnStage.get(i).picHeightY() + 100) {
 
                 return true;
 

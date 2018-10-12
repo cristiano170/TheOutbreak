@@ -47,24 +47,14 @@ public class Weapon extends Drawable implements Movable {
         return target.whenHit();  // Returns the specific result that occurs when each target is hit
 
 
-        /*if (target instanceof Foe) {
-            return target.whenHit();
-            //System.out.println("Foe hit Score: " + score);
-        }
-        if (target instanceof Victim) {
-            return target.whenHit();
-            //System.out.println("Victim hit HP: " + hp);
-        }
-        if (target instanceof HPBonus) {
-            return target.whenHit();
-            //System.out.println("HPBonus hit HP: " + hp);
-        }
+    }
 
-        if (target instanceof AmmoBonus) {
-            currentBullets += target.whenHit();
-            System.out.println("AmmoBonus hit Ammo: " + getCurrentBullets());
-        }*/
+    public void fire() {
 
+        if (currentBullets > 0) {
+            currentBullets--;
+            System.out.println(currentBullets);
+        }
     }
 
     @Override

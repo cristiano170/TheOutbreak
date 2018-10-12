@@ -5,7 +5,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public abstract class Drawable {
 
     private String fileName;
-    private Picture picture;
+    protected Picture  picture;
 
 
     public Drawable(String fileName) throws java.lang.NullPointerException {

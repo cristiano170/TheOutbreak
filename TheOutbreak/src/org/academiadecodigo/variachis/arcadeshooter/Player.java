@@ -90,8 +90,14 @@ public class Player {
             System.out.println("Weapon current ammo: " + weapon.getCurrentBullets());
         }
 
+
         checkIfGameover();
 
 
+    }
+
+    public void shoot(){
+        weapon.fire();
+        checkIfGameover();
     }
 }
