@@ -30,6 +30,9 @@ public class Game implements KeyboardHandler, MouseHandler {
     private Picture crosshair;
     private Picture gameoverPic;
     private Hud hud;
+    private Sound gunShot;
+    private Sound introSound;
+    private Sound zombieSound;
 
 
     public Game() throws java.lang.NullPointerException {
@@ -42,8 +45,9 @@ public class Game implements KeyboardHandler, MouseHandler {
         targetFactory = new TargetFactory();
         hud = new Hud();
         hud.setValuesText(player.getScore(), player.getHp(), player.getWeaponBullets());
-
-
+        gunShot = new Sound("/resources/sound/gunshot.wav"); // open stream
+        introSound = new Sound("/resources/sound/introsong.wav");
+        zombieSound = new Sound("/resources/sound/zombiesound.wav");
     }
 
 
@@ -55,6 +59,8 @@ public class Game implements KeyboardHandler, MouseHandler {
         //gamepic = new Picture(10, 10, "/image/graveyard.png");
 
         gamepic.draw();
+        introSound.play(true);
+
 
         gameoverPic = new Picture(gamepic.getWidth() / 4.5, 10, "image/gameover.png");
         //Game sets the maximum number of targets to be created in the TargetFactory
@@ -83,6 +89,7 @@ public class Game implements KeyboardHandler, MouseHandler {
         }
 
         try {
+            //introSound.stop();
             play();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -192,6 +199,7 @@ public class Game implements KeyboardHandler, MouseHandler {
 
         if (!gameover) {
 
+            zombieSound.play(true);
             gamepic.delete();
             gamepic = new Picture(10, 10, "image/gameField.jpg");
             gamepic.draw();
@@ -279,6 +287,7 @@ public class Game implements KeyboardHandler, MouseHandler {
                 //System.out.println("SHOOT");
                 Target targetHit = checkTargetHit(crosshair.getX() + (crosshair.getWidth() / 2d), crosshair.getY() +
                         (crosshair.getHeight() / 2d));
+                gunShot.play(true);
 
                 if (targetHit != null) {
                     player.shoot(targetHit);
