@@ -214,23 +214,22 @@ public class Game implements KeyboardHandler, MouseHandler {
                 // - it always has 5 targets on stage
                 addElementOnStage();
 
-                Thread.sleep(10);
+                //Thread.sleep(10);
 
                 moveTargets();
-                hud.setValuesText(player.getScore(), player.getHp(), player.getWeaponBullets());
 
                 Thread.sleep(100);
                 hud.showValues();
 
-                if (gameover) {
-
-                    System.out.println("habemos gameover");
-                    return;
-
-                }
-
-
                 setGameOver();
+                hud.setValuesText(player.getScore(), player.getHp(), player.getWeaponBullets());
+
+
+
+                if (gameover) {
+                    hud.showValues();
+                    return;
+                }
 
             }
         }
@@ -260,26 +259,8 @@ public class Game implements KeyboardHandler, MouseHandler {
 
     }
 
-    public void gameRestart() {
 
-        gameover = false;
-        gameStart = false;
-        gameEnd = false;
-        crosshair.delete();
-        gamepic.delete();
-        //createTargets = new Target[numberOfTargets];
-        targetOffStage.clear();
-        targetOnStage.clear();
-        try {
-            init();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
-    public void moveTheMouse(double x, double y, String s) {
+    private void moveTheMouse(double x, double y, String s) {
 
         crosshair.delete();
         crosshair = new Picture(x, y, s);
@@ -318,7 +299,7 @@ public class Game implements KeyboardHandler, MouseHandler {
         moveTheMouse(mouseEvent.getX(), mouseEvent.getY(), "/image/crosshair.png");
     }
 
-    public Target checkTargetHit(double x, double y) {
+    private Target checkTargetHit(double x, double y) {
 
         for (int i = 0; i < targetOnStage.size(); i++) {
             if (x > targetOnStage.get(i).picX()
@@ -333,17 +314,8 @@ public class Game implements KeyboardHandler, MouseHandler {
 
     }
 
-    public boolean checkColision(int xRan, int yRan) {
+    private boolean checkColision(int xRan, int yRan) {
 
-        /*for (int i = 0; i < targetOnStage.size(); i++) {
-            if (xRan > targetOnStage.get(i).picX() - 100
-                    && xRan < targetOnStage.get(i).picX() + targetOnStage.get(i).picWidthX() + 100
-                    && yRan > targetOnStage.get(i).picY() - 100
-                    && yRan < targetOnStage.get(i).picY() + targetOnStage.get(i).picHeightY() + 100) {
-
-                return true;
-            }
-        }*/
 
         for (int i = 0; i < targetOnStage.size(); i++) {
             if (xRan > targetOnStage.get(i).picX() - 100
