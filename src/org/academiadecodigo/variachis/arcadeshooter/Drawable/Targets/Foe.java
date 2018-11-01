@@ -27,12 +27,12 @@ public class Foe extends Target implements Movable {
 
         if (rmd == 1) {
             if (picture.getX() < 650) {
-                picture.translate(5, 0);
+                picture.translate(20, 0);
             }
 
         } else {
             if (picture.getX() > 40) {
-                picture.translate(-5, 0);
+                picture.translate(-20, 0);
             }
         }
     }

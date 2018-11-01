@@ -37,7 +37,7 @@ public class Game implements KeyboardHandler, MouseHandler {
 
     public Game() throws java.lang.NullPointerException {
         //Create gamepic
-        gamepic = new Picture(10, 10, "/image/Main Menu.png");
+        gamepic = new Picture(10, 10, "resources/image/Main Menu.png");
         player = new Player("NOME");
         createTargets = new Target[numberOfTargets];
         targetOffStage = new LinkedList<>();
@@ -62,7 +62,7 @@ public class Game implements KeyboardHandler, MouseHandler {
         introSound.play(true);
 
 
-        gameoverPic = new Picture(gamepic.getWidth() / 4.5, 10, "image/gameover.png");
+        gameoverPic = new Picture(gamepic.getWidth() / 4.5, 10, "resources/image/gameover.png");
         //Game sets the maximum number of targets to be created in the TargetFactory
         targetFactory.setMaxNumberTargets(numberOfTargets);
 
@@ -201,7 +201,7 @@ public class Game implements KeyboardHandler, MouseHandler {
 
             zombieSound.play(true);
             gamepic.delete();
-            gamepic = new Picture(10, 10, "image/gameField.jpg");
+            gamepic = new Picture(10, 10, "resources/image/gameField.jpg");
             gamepic.draw();
 
             System.out.println("LOADED");
@@ -214,7 +214,7 @@ public class Game implements KeyboardHandler, MouseHandler {
             m.addEventListener(MouseEventType.MOUSE_MOVED);
 
 
-            crosshair = new Picture(10, 10, "/image/crosshair.png");
+            crosshair = new Picture(10, 10, "resources/image/crosshair.png");
 
 
             while (!gameover) {
@@ -305,7 +305,7 @@ public class Game implements KeyboardHandler, MouseHandler {
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
 
-        moveTheMouse(mouseEvent.getX(), mouseEvent.getY(), "/image/crosshair.png");
+        moveTheMouse(mouseEvent.getX(), mouseEvent.getY(), "resources/image/crosshair.png");
     }
 
     private Target checkTargetHit(double x, double y) {

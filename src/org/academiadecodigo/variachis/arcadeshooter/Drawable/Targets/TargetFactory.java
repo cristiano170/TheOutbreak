@@ -17,20 +17,20 @@ public class TargetFactory {
 
         if (this.currentNumberOfTargets < maxNumberTargets * 0.45) {
             this.currentNumberOfTargets++;
-            return new Foe("/image/Zombie.png");
+            return new Foe("resources/image/Zombie.png");
         }
 
         if (this.currentNumberOfTargets >= maxNumberTargets * 0.45 && currentNumberOfTargets < maxNumberTargets * 0.7) {
             currentNumberOfTargets++;
-            return new Victim("/image/cat.png");
+            return new Victim("resources/image/cat.png");
         }
 
         if (currentNumberOfTargets >= maxNumberTargets * 0.7 && currentNumberOfTargets < maxNumberTargets * 0.85) {
             currentNumberOfTargets++;
-            return new HPBonus("/image/Tuna.png");
+            return new HPBonus("resources/image/tuna.png");
         }
         currentNumberOfTargets++;
-        return new AmmoBonus("/image/AmmoB.png");
+        return new AmmoBonus("resources/image/AmmoB.png");
 
 
     }
