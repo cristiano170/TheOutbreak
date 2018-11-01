@@ -1,4 +1,4 @@
-package org.academiadecodigo.variachis.arcadeshooter.Drawable;
+package org.academiadecodigo.variachis.theoutbreak.Drawable;
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 

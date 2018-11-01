@@ -1,9 +1,8 @@
-package org.academiadecodigo.variachis.arcadeshooter.Drawable.Weapons;
+package org.academiadecodigo.variachis.theoutbreak.Drawable.Weapons;
 
-import org.academiadecodigo.variachis.arcadeshooter.Drawable.Drawable;
-import org.academiadecodigo.variachis.arcadeshooter.Drawable.Targets.*;
-import org.academiadecodigo.variachis.arcadeshooter.Game;
-import org.academiadecodigo.variachis.arcadeshooter.Movable;
+import org.academiadecodigo.variachis.theoutbreak.Drawable.Drawable;
+import org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.Target;
+import org.academiadecodigo.variachis.theoutbreak.Movable;
 
 
 public class Weapon extends Drawable implements Movable {

@@ -1,4 +1,4 @@
-package org.academiadecodigo.variachis.arcadeshooter;
+package org.academiadecodigo.variachis.theoutbreak;
 
 
 import javax.sound.sampled.*;

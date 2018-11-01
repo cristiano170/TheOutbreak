@@ -1,4 +1,4 @@
-package org.academiadecodigo.variachis.arcadeshooter.Drawable.Targets;
+package org.academiadecodigo.variachis.theoutbreak.Drawable.Targets;
 
 public class AmmoBonus extends Target {
 

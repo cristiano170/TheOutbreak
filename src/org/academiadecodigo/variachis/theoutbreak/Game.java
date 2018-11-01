@@ -1,4 +1,4 @@
-package org.academiadecodigo.variachis.arcadeshooter;
+package org.academiadecodigo.variachis.theoutbreak;
 
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
@@ -9,7 +9,7 @@ import org.academiadecodigo.simplegraphics.mouse.MouseEvent;
 import org.academiadecodigo.simplegraphics.mouse.MouseEventType;
 import org.academiadecodigo.simplegraphics.mouse.MouseHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-import org.academiadecodigo.variachis.arcadeshooter.Drawable.Targets.*;
+import org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.Target;
 
 import java.util.LinkedList;
 
@@ -19,34 +19,34 @@ public class Game implements KeyboardHandler, MouseHandler {
     private boolean gameStart = false;
     private boolean gameEnd = false;
     private Player player;
-    private Target[] createTargets;
-    private LinkedList<Target> targetOffStage;
-    private LinkedList<Target> targetOnStage;
+    private org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.Target[] createTargets;
+    private LinkedList<org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.Target> targetOffStage;
+    private LinkedList<org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.Target> targetOnStage;
     private Boolean gameover = false;
     private final int numberOfTargets = 20;
-    private TargetFactory targetFactory;
+    private org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.TargetFactory targetFactory;
     private final int maxTargetsOnStage = 5;
     private Picture gamepic;
     private Picture crosshair;
     private Picture gameoverPic;
-    private Hud hud;
-    private Sound gunShot;
-    private Sound introSound;
-    private Sound zombieSound;
+    private org.academiadecodigo.variachis.theoutbreak.Hud hud;
+    private org.academiadecodigo.variachis.theoutbreak.Sound gunShot;
+    private org.academiadecodigo.variachis.theoutbreak.Sound introSound;
+    private org.academiadecodigo.variachis.theoutbreak.Sound zombieSound;
 
 
     public Game() throws java.lang.NullPointerException {
         //Create gamepic
         gamepic = new Picture(10, 10, "resources/image/Main Menu.png");
         player = new Player("NOME");
-        createTargets = new Target[numberOfTargets];
+        createTargets = new org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.Target[numberOfTargets];
         targetOffStage = new LinkedList<>();
         targetOnStage = new LinkedList<>();
-        targetFactory = new TargetFactory();
+        targetFactory = new org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.TargetFactory();
         hud = new Hud();
         hud.setValuesText(player.getScore(), player.getHp(), player.getWeaponBullets());
-        gunShot = new Sound("/resources/sound/gunshot.wav"); // open stream
-        introSound = new Sound("/resources/sound/introsong.wav");
+        gunShot = new org.academiadecodigo.variachis.theoutbreak.Sound("/resources/sound/gunshot.wav"); // open stream
+        introSound = new org.academiadecodigo.variachis.theoutbreak.Sound("/resources/sound/introsong.wav");
         zombieSound = new Sound("/resources/sound/zombiesound.wav");
     }
 
@@ -131,7 +131,7 @@ public class Game implements KeyboardHandler, MouseHandler {
             this.gameover = true;
             this.gameEnd = true;
 
-            for (Target t : targetOnStage) {
+            for (org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.Target t : targetOnStage) {
                 t.deleteTargetImg();
 
 
@@ -184,7 +184,7 @@ public class Game implements KeyboardHandler, MouseHandler {
 
 
     // When target is hit it's added to the offStage list and then removed from the onStage list
-    private void removeTargetShot(Target target) {
+    private void removeTargetShot(org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.Target target) {
 
         int elementToRemove = targetOnStage.indexOf(target);
         targetOffStage.add(targetOnStage.get(elementToRemove));
@@ -257,7 +257,7 @@ public class Game implements KeyboardHandler, MouseHandler {
     private void moveTargets() throws java.lang.InterruptedException {
 
         for (int i = 0; i < targetOnStage.size(); i++) {
-            if (targetOnStage.get(i) instanceof Foe || targetOnStage.get(i) instanceof Victim) {
+            if (targetOnStage.get(i) instanceof org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.Foe || targetOnStage.get(i) instanceof org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.Victim) {
                 ((Movable) targetOnStage.get(i)).move();
                 Thread.sleep(60);
             }
@@ -285,7 +285,7 @@ public class Game implements KeyboardHandler, MouseHandler {
         switch (mouseEvent.getEventType()) {
             case MOUSE_CLICKED:
                 //System.out.println("SHOOT");
-                Target targetHit = checkTargetHit(crosshair.getX() + (crosshair.getWidth() / 2d), crosshair.getY() +
+                org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.Target targetHit = checkTargetHit(crosshair.getX() + (crosshair.getWidth() / 2d), crosshair.getY() +
                         (crosshair.getHeight() / 2d));
                 gunShot.play(true);
 

@@ -1,11 +1,4 @@
-package org.academiadecodigo.variachis.arcadeshooter;
-
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
-import org.academiadecodigo.simplegraphics.pictures.Picture;
-
-import javax.swing.*;
-import java.net.URL;
+package org.academiadecodigo.variachis.theoutbreak;
 
 import static java.lang.Thread.sleep;
 

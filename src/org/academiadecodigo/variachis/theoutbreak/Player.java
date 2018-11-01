@@ -1,7 +1,7 @@
-package org.academiadecodigo.variachis.arcadeshooter;
+package org.academiadecodigo.variachis.theoutbreak;
 
-import org.academiadecodigo.variachis.arcadeshooter.Drawable.Targets.*;
-import org.academiadecodigo.variachis.arcadeshooter.Drawable.Weapons.Weapon;
+import org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.AmmoBonus;
+import org.academiadecodigo.variachis.theoutbreak.Drawable.Weapons.Weapon;
 
 public class Player {
 
@@ -9,7 +9,7 @@ public class Player {
     private final int maxHP = 5;
     protected int score = 0;
     private String name;
-    private Weapon weapon;
+    private org.academiadecodigo.variachis.theoutbreak.Drawable.Weapons.Weapon weapon;
 
 
     public Player(String name) throws java.lang.NullPointerException {
@@ -50,22 +50,22 @@ public class Player {
 
 
     // Player shoots targets and it updates score, health points and ammo
-    public void shoot(Target target) {
+    public void shoot(org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.Target target) {
 
 
-        if (target instanceof Foe) { // Increments player's score with a return value
+        if (target instanceof org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.Foe) { // Increments player's score with a return value
             score += weapon.fire(target);
             System.out.println("Foe hit Score: " + score);
             System.out.println("Weapon current ammo: " + weapon.getCurrentBullets());
 
         }
-        if (target instanceof Victim) {  // Decrements player's Hp with a return value
+        if (target instanceof org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.Victim) {  // Decrements player's Hp with a return value
             hp -= weapon.fire(target);
             System.out.println("Victim hit HP: " + hp);
             System.out.println("Weapon current ammo: " + weapon.getCurrentBullets());
 
         }
-        if (target instanceof HPBonus) {
+        if (target instanceof org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.HPBonus) {
             if (hp == maxHP) {     // If current Hp is the same as maxHp shoots target but doesn't earn any bonus
                 weapon.fire(target);
                 System.out.println(weapon.getCurrentBullets());

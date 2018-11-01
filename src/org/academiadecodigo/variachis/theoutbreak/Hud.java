@@ -1,4 +1,4 @@
-package org.academiadecodigo.variachis.arcadeshooter;
+package org.academiadecodigo.variachis.theoutbreak;
 
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Text;

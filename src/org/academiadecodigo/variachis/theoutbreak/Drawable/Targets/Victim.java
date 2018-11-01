@@ -1,6 +1,6 @@
-package org.academiadecodigo.variachis.arcadeshooter.Drawable.Targets;
+package org.academiadecodigo.variachis.theoutbreak.Drawable.Targets;
 
-import org.academiadecodigo.variachis.arcadeshooter.Movable;
+import org.academiadecodigo.variachis.theoutbreak.Movable;
 
 import java.util.ConcurrentModificationException;
 

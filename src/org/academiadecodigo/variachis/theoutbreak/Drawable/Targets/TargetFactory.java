@@ -1,8 +1,8 @@
-package org.academiadecodigo.variachis.arcadeshooter.Drawable.Targets;
+package org.academiadecodigo.variachis.theoutbreak.Drawable.Targets;
 
 public class TargetFactory {
 
-    private Target target;
+    private org.academiadecodigo.variachis.theoutbreak.Drawable.Targets.Target target;
     private int currentNumberOfTargets = 0;
     private int maxNumberTargets;
 
